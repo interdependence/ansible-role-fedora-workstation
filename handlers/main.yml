@@ -1,0 +1,7 @@
+# Handlers
+
+---
+
+- name: Update font cache
+  ansible.builtin.command:
+    cmd: fc-cache ~/.local/share/fonts

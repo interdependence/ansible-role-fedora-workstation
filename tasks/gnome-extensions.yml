@@ -1,0 +1,32 @@
+# Ensure GNOME extensions are configured
+
+---
+
+- name: Retrieve list of installed GNOME extensions
+  ansible.builtin.command:
+    cmd: gnome-extensions list
+  changed_when: false
+  register: installed_extensions
+
+- name: Ensure GNOME extensions are installed
+  ansible.builtin.command:
+    cmd: >
+      gdbus call
+        --session
+        --dest org.gnome.Shell
+        --object-path /org/gnome/Shell
+        --method org.gnome.Shell.Extensions.InstallRemoteExtension
+        {{ item.name }}
+  when: >
+    item.state | default("present") != 'absent' and
+    item.name not in installed_extensions.stdout_lines
+  loop: '{{ fedora_workstation_gnome_extensions }}'
+
+- name: Ensure GNOME extensions set to absent are uninstalled
+  ansible.builtin.command:
+    cmd: 'gnome-extensions uninstall {{ item.name }}'
+  when: >
+    item.state | default("present") == 'absent' and
+    item.name in installed_extensions.stdout_lines
+  loop: '{{ fedora_workstation_gnome_extensions }}'
+

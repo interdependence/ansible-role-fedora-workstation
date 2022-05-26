@@ -1,0 +1,31 @@
+# Configure Fedora Workstation
+
+---
+
+- include_tasks: packages.yml
+  when: fedora_workstation_configure_packages
+
+- name: Ensure systemd services are configured
+  ansible.builtin.systemd:
+    name: '{{ item.name }}'
+    state: '{{ item.state | default("started") }}'
+    enabled: '{{ item.enabled | default(true) }}'
+  when: fedora_workstation_configure_services
+  loop: '{{ fedora_workstation_services }}'
+
+- include_tasks: flatpak.yml
+  when: fedora_workstation_configure_flatpak
+   
+- include_tasks: gnome-extensions.yml
+  when: fedora_workstation_configure_gnome_extensions
+   
+- include_tasks: fonts.yml
+  when: fedora_workstation_configure_fonts
+
+- name: Ensure dconf settings are configured
+  community.general.dconf:
+    key: '{{ item.key }}'
+    value: '{{ item.value }}'
+    state: present
+  when: fedora_workstation_configure_dconf
+  loop: '{{ fedora_workstation_dconf | dict2items }}'

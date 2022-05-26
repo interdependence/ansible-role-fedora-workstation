@@ -1,0 +1,17 @@
+# Ensure packages are configured
+
+---
+
+- name: Update all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+  become: true
+
+- name: Ensure packages are configured
+  ansible.builtin.dnf:
+    name: '{{ item.name }}'
+    state: '{{ item.state | default("present") }}'
+    autoremove: true
+  become: true
+  loop: '{{ fedora_workstation_packages }}'

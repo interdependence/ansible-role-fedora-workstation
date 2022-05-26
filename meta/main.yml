@@ -1,0 +1,16 @@
+# Metadata
+
+---
+
+galaxy_info:
+  role_name: fedora-workstation
+  author: William Vandervalk
+  description: Configure Fedora Workstation
+  license: MIT
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+  galaxy_tags:
+    - Fedora
+    - Workstation

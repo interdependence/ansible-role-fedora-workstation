@@ -1,0 +1,42 @@
+# Ensure fonts are configured
+
+---
+
+- name: Retrieve list of installed fonts
+  ansible.builtin.find:
+    paths: ~/.local/share/fonts
+    file_type: directory
+  register: installed_fonts
+
+- name: Ensure font directories are configured
+  ansible.builtin.file:
+    path: '~/.local/share/fonts/{{ item.name }}'
+    state: directory
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: 0775
+  when: >
+    item.state | default('present') != 'absent' and
+    not installed_fonts.files | selectattr('path', 'contains', item.name)
+  loop: '{{ fedora_workstation_fonts }}'
+
+- name: Ensure fonts are installed
+  ansible.builtin.unarchive:
+    src: '{{ item.url }}'
+    dest: '~/.local/share/fonts/{{ item.name }}'
+    remote_src: yes
+  when: >
+    item.state | default('present') != 'absent' and
+    not installed_fonts.files | selectattr('path', 'contains', item.name)
+  notify: Update font cache
+  loop: '{{ fedora_workstation_fonts }}'
+
+- name: Ensure fonts set to absent are uninstalled
+  ansible.builtin.file:
+    path: '~/.local/share/fonts/{{ item.name }}'
+    state: absent
+  when: >
+    item.state | default('present') == 'absent' and
+    installed_fonts.files | selectattr('path', 'contains', item.name)
+  notify: Update font cache
+  loop: '{{ fedora_workstation_fonts }}'
