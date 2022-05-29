@@ -2,6 +2,11 @@
 
 ---
 
+- name: Ensure hostname is configured
+  ansible.builtin.hostname:
+    name: '{{ inventory_hostname }}'
+    use: systemd
+
 - include_tasks: packages.yml
   when: fedora_workstation_configure_packages
 
