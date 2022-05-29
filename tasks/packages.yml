@@ -12,6 +12,6 @@
   ansible.builtin.dnf:
     name: '{{ item.name }}'
     state: '{{ item.state | default("present") }}'
-    autoremove: true
+    autoremove: '{{ true if item.state | default("present") == "absent" else false }}'
   become: true
   loop: '{{ fedora_workstation_packages }}'
