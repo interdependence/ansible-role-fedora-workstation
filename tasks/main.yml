@@ -2,22 +2,6 @@
 
 ---
 
-- name: Ensure hostname is configured
-  ansible.builtin.hostname:
-    name: '{{ inventory_hostname }}'
-    use: systemd
-
-- include_tasks: packages.yml
-  when: fedora_workstation_configure_packages
-
-- name: Ensure systemd services are configured
-  ansible.builtin.systemd:
-    name: '{{ item.name }}'
-    state: '{{ item.state | default("started") }}'
-    enabled: '{{ item.enabled | default(true) }}'
-  when: fedora_workstation_configure_services
-  loop: '{{ fedora_workstation_services }}'
-
 - include_tasks: flatpak.yml
   when: fedora_workstation_configure_flatpak
    

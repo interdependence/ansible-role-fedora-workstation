@@ -3,54 +3,41 @@
 ---
 
 # Enable or disable tasks
-fedora_workstation_configure_packages: true
-fedora_workstation_configure_services: true
 fedora_workstation_configure_flatpak: true
 fedora_workstation_configure_gnome_extensions: true
 fedora_workstation_configure_fonts: true
 fedora_workstation_configure_dconf: true
 
-# List of dictionaries containing packages
-fedora_workstation_packages: []
-# - name: ncdu
-#   state: present
-# - name: htop
-#   state: present
-# - name: neovim
-#   state: present
-# - name: rhythmbox
-#   state: absent
-
-# List of dictionaries containing services
-fedora_workstation_services: []
-# - name: firewalld
-#   state: started
-#   enabled: true
-
-# List of dictionaries containing Flatpak remotes
+# Flatpak remotes
 fedora_workstation_flatpak_remotes: []
 # - name: flathub
 #   state: present
 #   method: system
 #   url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# List of dictionaries containing Flatpak packages
+# Flatpak packages
 fedora_workstation_flatpak_packages: []
+# # Individual package
 # - name: org.mozilla.firefox
 #   state: present
+# # List of packages
+# - name: 
+#     - com.github.tchx84.Flatseal
+#     - com.ultimaker.cura
+#   state: present
 
-# List of dictionaries containing GNOME extensions
+# GNOME extensions
 fedora_workstation_gnome_extensions: []
 # - name: just-perfection-desktop@just-perfection
 #   state: present
 
-# List of dictionaries containing fonts
+# Custom fonts
 fedora_workstation_fonts: []
 # - name: dejavu-sans-mono-nerd-fonts
 #   state: present
 #   url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/DejaVuSansMono.zip
 
-# Dictionary containing dconf key/value pairs
+# dconf key/value pairs
 fedora_workstation_dconf: {}
 # /org/gnome/desktop/interface/color-scheme: "'prefer-dark'"
 # /org/gnome/desktop/interface/cursor-size: '32'

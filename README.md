@@ -2,6 +2,8 @@
 
 An Ansible role to configure [Fedora Workstation].
 
+For configuring the base system, see: [interdependence/ansible-role-fedora].
+
 ## Requirements
 
 The dconf module depends on the `psutil` Python library (version 4.0.0 and upwards), dconf, dbus-send, and dbus-run-session binaries.
@@ -13,16 +15,6 @@ The dconf module depends on the `psutil` Python library (version 4.0.0 and upwar
 <th>Variable</th>
 <th>Default</th>
 <th>Example</th>
-</tr>
-<tr>
-<td>fedora_workstation_configure_packages</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>fedora_workstation_configure_services</td>
-<td>true</td>
-<td>false</td>
 </tr>
 <tr>
 <td>fedora_workstation_configure_flatpak</td>
@@ -43,39 +35,6 @@ The dconf module depends on the `psutil` Python library (version 4.0.0 and upwar
 <td>fedora_workstation_configure_dconf</td>
 <td>true</td>
 <td>false</td>
-</tr>
-<tr>
-<td>fedora_workstation_packages</td>
-<td>[ ]</td>
-<td>
-
-```yaml
-fedora_workstation_packages:
-  - name: ncdu
-    state: present
-  - name: htop
-    state: present
-  - name: neovim
-    state: present
-  - name: rhythmbox
-    state: absent
-```
-
-</td>
-</tr>
-<tr>
-<td>fedora_workstation_services</td>
-<td>[ ]</td>
-<td>
-
-```yaml
-fedora_workstation_services:
-  - name: firewalld
-    state: started
-    enabled: true
-```
-
-</td>
 </tr>
 <tr>
 <td>fedora_workstation_flatpak_remotes</td>
@@ -99,7 +58,13 @@ fedora_workstation_flatpak_remotes:
 
 ```yaml
 fedora_workstation_flatpak_packages:
+  # Individual package
   - name: org.mozilla.firefox
+    state: present
+  # List of packages
+  - name: 
+      - com.github.tchx84.Flatseal
+      - com.ultimaker.cura
     state: present
 ```
 
@@ -149,7 +114,7 @@ fedora_workstation_dconf:
 
 ### Variable Notes
 
-Where `state` is defined in each role variable, the default value is `present`, and can be omitted. If `state` is set to `absent`, the corresponding item will be removed.
+Where `state` is set to `present` in each role variable, the default value is `present`, and can be omitted. If `state` is set to `absent`, the corresponding item will be removed.
 
 ## Example Playbook
 
@@ -163,26 +128,16 @@ Where `state` is defined in each role variable, the default value is `present`, 
   roles:
     - role: interdependence.fedora-workstation
       vars:
-        fedora_workstation_packages:
-          - name: ncdu
-            state: present
-          - name: htop
-            state: present
-          - name: neovim
-            state: present
-          - name: rhythmbox
-            state: absent
-        fedora_workstation_services:
-          - name: firewalld
-            state: started
-            enabled: true
         fedora_workstation_flatpak_remotes:
           - name: flathub
             state: present
             method: system
             url: https://dl.flathub.org/repo/flathub.flatpakrepo
         fedora_workstation_flatpak_packages:
-          - name: org.mozilla.firefox
+          - name:
+              - org.mozilla.firefox
+              - com.github.tchx84.Flatseal
+              - com.ultimaker.cura
             state: present
         fedora_workstation_gnome_extensions:
           - name: just-perfection-desktop@just-perfection
@@ -197,3 +152,4 @@ Where `state` is defined in each role variable, the default value is `present`, 
 ```
 
 [Fedora Workstation]: https://getfedora.org/en/workstation/
+[interdependence/ansible-role-fedora]: https://github.com/interdependence/ansible-role-fedora
