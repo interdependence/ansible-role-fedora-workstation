@@ -2,7 +2,7 @@
 
 An Ansible role to configure [Fedora Workstation].
 
-For configuring the base system, see: [interdependence/ansible-role-fedora].
+For configuring the base system: [interdependence/ansible-role-fedora].
 
 ## Requirements
 
