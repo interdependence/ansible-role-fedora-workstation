@@ -126,7 +126,7 @@ Where `state` is set to `present` in each role variable, the default value is `p
 - name: Configure Fedora Workstation
   hosts: workstations
   roles:
-    - role: interdependence.fedora-workstation
+    - role: interdependence.fedora_workstation
       vars:
         fedora_workstation_flatpak_remotes:
           - name: flathub
