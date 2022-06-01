@@ -4,10 +4,10 @@
 
 - include_tasks: flatpak.yml
   when: fedora_workstation_configure_flatpak
-   
+
 - include_tasks: gnome-extensions.yml
   when: fedora_workstation_configure_gnome_extensions
-   
+
 - include_tasks: fonts.yml
   when: fedora_workstation_configure_fonts
 

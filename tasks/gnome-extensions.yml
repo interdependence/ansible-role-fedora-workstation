@@ -29,4 +29,3 @@
     item.state | default("present") == 'absent' and
     item.name in installed_extensions.stdout_lines
   loop: '{{ fedora_workstation_gnome_extensions }}'
-

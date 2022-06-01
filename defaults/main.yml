@@ -21,7 +21,7 @@ fedora_workstation_flatpak_packages: []
 # - name: org.mozilla.firefox
 #   state: present
 # # List of packages
-# - name: 
+# - name:
 #     - com.github.tchx84.Flatseal
 #     - com.ultimaker.cura
 #   state: present

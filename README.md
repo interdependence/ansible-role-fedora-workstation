@@ -2,11 +2,11 @@
 
 An Ansible role to configure [Fedora Workstation].
 
-For configuring the base system: [interdependence/ansible-role-fedora].
+For configuring the base system: [ansible-role-fedora].
 
 ## Requirements
 
-The dconf module depends on the `psutil` Python library (version 4.0.0 and upwards), dconf, dbus-send, and dbus-run-session binaries.
+The dconf module depends on the [psutil] Python library (version 4.0.0 and upwards), dconf, dbus-send, and dbus-run-session.
 
 ## Role Variables
 
@@ -152,4 +152,5 @@ Where `state` is set to `present` in each role variable, the default value is `p
 ```
 
 [Fedora Workstation]: https://getfedora.org/en/workstation/
-[interdependence/ansible-role-fedora]: https://github.com/interdependence/ansible-role-fedora
+[ansible-role-fedora]: https://github.com/interdependence/ansible-role-fedora
+[psutil]: https://pypi.org/project/psutil/

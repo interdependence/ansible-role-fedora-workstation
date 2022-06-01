@@ -24,7 +24,7 @@
   ansible.builtin.unarchive:
     src: '{{ item.url }}'
     dest: '~/.local/share/fonts/{{ item.name }}'
-    remote_src: yes
+    remote_src: true
   when: >
     item.state | default('present') != 'absent' and
     not installed_fonts.files | selectattr('path', 'contains', item.name)
